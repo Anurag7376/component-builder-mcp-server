@@ -1,0 +1,10 @@
+deployment/
+test/
+docs/
+examples/
+*.test.js
+*.test.ts
+test-*.js
+.git/
+README.md
+DEPLOYMENT_GUIDE.md

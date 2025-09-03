@@ -35,10 +35,10 @@
 
 ## Deployment Configuration
 
-Your project is already configured with:
-- ✅ `vercel.json` configuration file
+Your project is configured for Vercel deployment with:
 - ✅ API endpoints in `/api` folder
 - ✅ TypeScript build configuration
+- ✅ Auto-detection enabled (no vercel.json needed)
 - ✅ Template files inclusion
 
 ## Available API Endpoints
