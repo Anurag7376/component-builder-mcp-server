@@ -29,11 +29,13 @@ git push -u origin main
 ### 3. Configuration (Automatic)
 
 Railway will automatically:
-- ✅ Detect Node.js and TypeScript
+- ✅ Detect Node.js 18.x from package.json and .nvmrc
+- ✅ Install dependencies with npm ci
 - ✅ Run `npm run build` during deployment
 - ✅ Start the server with `npm start`
 - ✅ Use the `/health` endpoint for health checks
 - ✅ Assign a public URL
+- ✅ Handle all Nixpacks configuration automatically
 
 ## Environment Variables (Optional)
 
