@@ -6,7 +6,7 @@ import { ComponentSpecSchema, ComponentValidationSchema } from './types/componen
 import { getAllTemplateTypes, getTemplate } from './templates/index.js';
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = parseInt(process.env.PORT || '3001', 10);
 
 // Middleware
 app.use(cors());
@@ -18,7 +18,28 @@ const validator = new ComponentValidator();
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ status: 'healthy', timestamp: new Date().toISOString() });
+  res.json({ 
+    status: 'healthy', 
+    timestamp: new Date().toISOString(),
+    version: process.env.npm_package_version || '1.0.0',
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    name: 'Component Builder MCP Server',
+    description: 'HTTP API for generating Shadcn UI components',
+    version: process.env.npm_package_version || '1.0.0',
+    endpoints: {
+      'POST /api/generate-component': 'Generate React components',
+      'POST /api/validate-component': 'Validate component code',
+      'GET /api/component-types': 'List available component types',
+      'GET /api/component-template/:type': 'Get template details',
+      'GET /health': 'Health check'
+    }
+  });
 });
 
 // MCP Tool endpoints
@@ -92,9 +113,11 @@ app.get('/api/component-template/:type', (req, res) => {
 });
 
 // Start server
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`🌐 HTTP wrapper for MCP server running on port ${port}`);
+  console.log(`🚀 Railway deployment ready!`);
   console.log(`📋 Available endpoints:`);
+  console.log(`  GET  / - API documentation`);
   console.log(`  POST /api/generate-component`);
   console.log(`  POST /api/validate-component`);
   console.log(`  GET  /api/component-types`);
