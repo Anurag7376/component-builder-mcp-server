@@ -94,6 +94,18 @@ Railway automatically handles:
 
 ## Troubleshooting
 
+### Nixpacks Build Issues
+
+**Problem**: `error: undefined variable 'npm'` during Nixpacks build
+
+**Solution**: 
+- ✅ Remove custom `nixpacks.toml` file (Railway auto-detection works better)
+- ✅ Use Node.js version specification in `package.json` engines field
+- ✅ Add `.nvmrc` file with Node version (18)
+- ✅ Let Railway handle all build configuration automatically
+
+**Why**: Railway's Nixpacks auto-detection is very reliable for Node.js projects and doesn't need manual configuration.
+
 ### Build Issues
 - Check the build logs in Railway dashboard
 - Ensure all dependencies are in `package.json`
