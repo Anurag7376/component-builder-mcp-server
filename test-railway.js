@@ -1,16 +1,19 @@
 // Railway deployment test script
-import fetch from 'node-fetch';
+// Update RAILWAY_URL with your actual Railway deployment URL
 
-const RAILWAY_URL = process.env.RAILWAY_URL || "https://your-app.railway.app";
+const RAILWAY_URL = process.env.RAILWAY_URL || "https://your-actual-railway-app.railway.app";
 
 async function testRailwayDeployment() {
     console.log('🚂 Testing Railway Deployment...\n');
     console.log(`Testing URL: ${RAILWAY_URL}\n`);
 
+    // Use built-in fetch for Node.js 18+
+    const fetchFunc = globalThis.fetch || (await import('node-fetch')).default;
+
     // Test 1: Root endpoint (API documentation)
     try {
         console.log('📋 Testing root endpoint...');
-        const response = await fetch(`${RAILWAY_URL}/`);
+        const response = await fetchFunc(`${RAILWAY_URL}/`);
         const data = await response.json();
         
         if (response.ok) {
