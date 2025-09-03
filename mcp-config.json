@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "component-builder": {
+      "command": "node",
+      "args": ["c:/Users/Anurag/OneDrive/Desktop/Tellis_Learning/component-builder-mcp-server/dist/index.js"],
+      "description": "Component Builder MCP Server for generating Shadcn UI components"
+    }
+  }
+}

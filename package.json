@@ -1,0 +1,56 @@
+{
+  "name": "component-builder-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for generating custom components based on Shadcn standards",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && npm run copy-templates",
+    "copy-templates": "node -e \"const fs=require('fs'); const path=require('path'); const src='src/templates'; const dest='dist/templates'; fs.readdirSync(src).filter(f=>f.endsWith('.hbs')).forEach(f=>fs.copyFileSync(path.join(src,f),path.join(dest,f)));\"",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "start:http": "node dist/http-wrapper.js",
+    "test": "node test/basic-test.js",
+    "test:aws": "node -e \"import('./test-aws-lambda.js').then(m => m.runAllTests())\"",
+    "test:components": "node -e \"import('./test-new-components.js')\"",
+    "package": "npm run build && npm pack",
+    "docker:build": "docker build -f deployment/docker/Dockerfile -t component-builder-mcp .",
+    "docker:run": "docker run -p 3001:3001 component-builder-mcp"
+  },
+  "keywords": [
+    "mcp",
+    "shadcn",
+    "components",
+    "react",
+    "generator"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "@vercel/node": "^3.0.0",
+    "aws-lambda": "^1.0.7",
+    "clsx": "^2.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.0",
+    "fs-extra": "^11.1.1",
+    "handlebars": "^4.7.8",
+    "prettier": "^3.0.0",
+    "tailwind-merge": "^3.3.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.0",
+    "@types/cors": "^2.8.0",
+    "@types/express": "^4.17.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/jest": "^29.0.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,32 @@
+import * as React from "react"
+import { cn } from "@/lib/utils"
+
+const {{ComponentName}} = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & {
+    value?: number
+    max?: number
+    {{#each props}}
+    {{name}}{{#unless required}}?{{/unless}}: {{type}}{{#if description}} // {{description}}{{/if}}
+    {{/each}}
+  }
+>(({ className, value, max = 100, {{#each props}}{{name}}, {{/each}}...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "relative h-4 w-full overflow-hidden rounded-full bg-secondary",
+      className
+    )}
+    {{#if accessibility.ariaLabel}}aria-label="{{accessibility.ariaLabel}}"{{/if}}
+    {{#if accessibility.role}}role="{{accessibility.role}}"{{/if}}
+    {...props}
+  >
+    <div
+      className="h-full w-full flex-1 bg-primary transition-all"
+      style={{"{{"}} transform: `translateX(-${{"{{"}}100 - (value || 0) / max * 100{{"}}"}}%)` {{"}}"}}
+    />
+  </div>
+))
+{{ComponentName}}.displayName = "{{ComponentName}}"
+
+export { {{ComponentName}} }

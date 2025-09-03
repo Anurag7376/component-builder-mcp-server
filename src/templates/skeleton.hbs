@@ -1,0 +1,32 @@
+import * as React from "react"
+import { cn } from "@/lib/utils"
+
+function {{ComponentName}}({
+  className,
+  {{#each props}}
+  {{name}},
+  {{/each}}
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & {
+  {{#each props}}
+  {{name}}{{#unless required}}?{{/unless}}: {{type}}{{#if description}} // {{description}}{{/if}}
+  {{/each}}
+}) {
+  return (
+    <div
+      className={cn("animate-pulse rounded-md bg-muted", className)}
+      {{#if accessibility.ariaLabel}}aria-label="{{accessibility.ariaLabel}}"{{/if}}
+      {{#if accessibility.role}}role="{{accessibility.role}}"{{/if}}
+      {...props}
+    >
+      {{#if children}}{props.children}{{else}}{{#if customContent}}{{{customContent}}}{{else}}
+      <div className="space-y-2">
+        <div className="h-4 bg-muted rounded"></div>
+        <div className="h-4 bg-muted rounded w-5/6"></div>
+      </div>
+      {{/if}}{{/if}}
+    </div>
+  )
+}
+
+export { {{ComponentName}} }

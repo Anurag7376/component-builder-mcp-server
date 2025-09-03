@@ -1,0 +1,38 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "framework": null,
+  "functions": {
+    "deployment/vercel/api/**.ts": {
+      "runtime": "nodejs18.x",
+      "includeFiles": "src/templates/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/generate-component",
+      "destination": "/deployment/vercel/api/generate-component"
+    },
+    {
+      "source": "/api/validate-component",
+      "destination": "/deployment/vercel/api/validate-component"
+    },
+    {
+      "source": "/api/component-types",
+      "destination": "/deployment/vercel/api/component-types"
+    },
+    {
+      "source": "/api/component-template",
+      "destination": "/deployment/vercel/api/component-template"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "build": {
+    "env": {
+      "NODE_VERSION": "18"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+import * as React from "react"
+import { cn } from "@/lib/utils"
+
+export interface {{ComponentName}}Props
+  extends React.HTMLAttributes<HTMLDivElement> {
+  {{#each props}}
+  {{name}}{{#unless required}}?{{/unless}}: {{type}}{{#if description}} // {{description}}{{/if}}
+  {{/each}}
+}
+
+const {{ComponentName}} = React.forwardRef<HTMLDivElement, {{ComponentName}}Props>(
+  ({ className, {{#each props}}{{name}}, {{/each}}...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(
+        "rounded-lg border bg-card text-card-foreground shadow-sm",
+        className
+      )}
+      {{#if accessibility.ariaLabel}}aria-label="{{accessibility.ariaLabel}}"{{/if}}
+      {{#if accessibility.role}}role="{{accessibility.role}}"{{/if}}
+      {{#if accessibility.tabIndex}}tabIndex={{{accessibility.tabIndex}}}{{/if}}
+      {...props}
+    >
+      {{#if children}}{props.children}{{else}}{{#if customContent}}{{{customContent}}}{{else}}
+      <div className="p-6">
+        <h3 className="font-semibold leading-none tracking-tight">{{ComponentName}}</h3>
+        <p className="text-sm text-muted-foreground mt-1.5">
+          {{#if description}}{{description}}{{else}}Card content goes here{{/if}}
+        </p>
+      </div>
+      {{/if}}{{/if}}
+    </div>
+  )
+)
+{{ComponentName}}.displayName = "{{ComponentName}}"
+
+const {{ComponentName}}Header = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    {...props}
+  />
+))
+{{ComponentName}}Header.displayName = "{{ComponentName}}Header"
+
+const {{ComponentName}}Title = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h3
+    ref={ref}
+    className={cn(
+      "text-2xl font-semibold leading-none tracking-tight",
+      className
+    )}
+    {...props}
+  />
+))
+{{ComponentName}}Title.displayName = "{{ComponentName}}Title"
+
+const {{ComponentName}}Description = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+    {...props}
+  />
+))
+{{ComponentName}}Description.displayName = "{{ComponentName}}Description"
+
+const {{ComponentName}}Content = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+))
+{{ComponentName}}Content.displayName = "{{ComponentName}}Content"
+
+const {{ComponentName}}Footer = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex items-center p-6 pt-0", className)}
+    {...props}
+  />
+))
+{{ComponentName}}Footer.displayName = "{{ComponentName}}Footer"
+
+export {
+  {{ComponentName}},
+  {{ComponentName}}Header,
+  {{ComponentName}}Footer,
+  {{ComponentName}}Title,
+  {{ComponentName}}Description,
+  {{ComponentName}}Content,
+}

@@ -1,0 +1,32 @@
+{
+  "development": {
+    "description": "Configuration for development machines",
+    "requirements": {
+      "node": ">=18.0.0",
+      "npm": ">=8.0.0"
+    },
+    "setup": {
+      "windows": {
+        "command": "node",
+        "args": ["C:\\dev\\component-builder-mcp-server\\dist\\index.js"],
+        "env": {
+          "NODE_ENV": "development"
+        }
+      },
+      "macos": {
+        "command": "node",
+        "args": ["/Users/username/dev/component-builder-mcp-server/dist/index.js"],
+        "env": {
+          "NODE_ENV": "development"
+        }
+      },
+      "linux": {
+        "command": "node",
+        "args": ["/home/username/dev/component-builder-mcp-server/dist/index.js"],
+        "env": {
+          "NODE_ENV": "development"
+        }
+      }
+    }
+  }
+}

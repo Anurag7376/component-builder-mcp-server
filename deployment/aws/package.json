@@ -1,0 +1,24 @@
+{
+  \"name\": \"component-builder-aws-lambda\",
+  \"version\": \"1.0.0\",
+  \"description\": \"AWS Lambda deployment for Component Builder MCP Server\",
+  \"main\": \"dist/lambda-handlers.js\",
+  \"type\": \"commonjs\",
+  \"scripts\": {
+    \"build\": \"tsc\",
+    \"package\": \"npm run build && zip -r lambda-deployment.zip dist/ node_modules/ package.json\",
+    \"deploy\": \"aws lambda update-function-code --function-name component-builder --zip-file fileb://lambda-deployment.zip\"
+  },
+  \"dependencies\": {
+    \"aws-lambda\": \"^1.0.7\",
+    \"zod\": \"^3.22.4\",
+    \"handlebars\": \"^4.7.8\",
+    \"clsx\": \"^2.1.1\",
+    \"tailwind-merge\": \"^3.3.1\"
+  },
+  \"devDependencies\": {
+    \"@types/aws-lambda\": \"^8.10.0\",
+    \"@types/node\": \"^20.0.0\",
+    \"typescript\": \"^5.0.0\"
+  }
+}

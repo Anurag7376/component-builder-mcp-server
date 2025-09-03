@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  component-builder-mcp:
+    build:
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile
+    container_name: component-builder-mcp
+    restart: unless-stopped
+    volumes:
+      # Mount templates for easy updates
+      - ../../src/templates:/app/src/templates:ro
+    environment:
+      - NODE_ENV=production
+    networks:
+      - mcp-network
+    # If you need HTTP access
+    # ports:
+    #   - "3000:3000"
+
+  # Optional: HTTP wrapper for REST API access
+  mcp-http-wrapper:
+    build:
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile.http-wrapper
+    container_name: mcp-http-wrapper
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    depends_on:
+      - component-builder-mcp
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    driver: bridge

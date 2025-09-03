@@ -1,0 +1,32 @@
+{
+  "team-server": {
+    "description": "Configuration for shared team server",
+    "deployment": {
+      "type": "docker",
+      "image": "component-builder-mcp:latest",
+      "ports": {
+        "mcp": 8080,
+        "http": 3001
+      },
+      "volumes": [
+        "./templates:/app/src/templates:ro",
+        "./logs:/app/logs"
+      ],
+      "environment": {
+        "NODE_ENV": "production",
+        "LOG_LEVEL": "info",
+        "MAX_COMPONENT_SIZE": "100kb"
+      }
+    },
+    "access": {
+      "mcp_endpoint": "tcp://team-server.company.com:8080",
+      "http_endpoint": "https://team-server.company.com:3001",
+      "authentication": "api-key"
+    },
+    "backup": {
+      "templates": true,
+      "logs": true,
+      "frequency": "daily"
+    }
+  }
+}

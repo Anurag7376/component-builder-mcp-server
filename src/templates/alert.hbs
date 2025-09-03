@@ -1,0 +1,52 @@
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
+
+const {{componentName}}Variants = cva(
+  "relative w-full rounded-lg border p-4",
+  {
+    variants: {
+      variant: {
+        default: "bg-background text-foreground",
+        destructive:
+          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
+const {{ComponentName}} = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof {{componentName}}Variants> & {
+    {{#each props}}
+    {{name}}{{#unless required}}?{{/unless}}: {{type}}{{#if description}} // {{description}}{{/if}}
+    {{/each}}
+  }
+>(({ className, variant, {{#each props}}{{name}}, {{/each}}...props }, ref) => (
+  <div
+    ref={ref}
+    role="alert"
+    className={cn({{componentName}}Variants({ variant }), className)}
+    {{#if accessibility.ariaLabel}}aria-label="{{accessibility.ariaLabel}}"{{/if}}
+    {...props}
+  >
+    {{#if children}}{props.children}{{else}}{{#if customContent}}{{{customContent}}}{{else}}
+    <div className="flex">
+      <div className="ml-3">
+        <h3 className="text-sm font-medium">
+          {{#if description}}{{description}}{{else}}{{ComponentName}}{{/if}}
+        </h3>
+        <div className="mt-2 text-sm text-muted-foreground">
+          <p>This is an alert message.</p>
+        </div>
+      </div>
+    </div>
+    {{/if}}{{/if}}
+  </div>
+))
+{{ComponentName}}.displayName = "{{ComponentName}}"
+
+export { {{ComponentName}}, {{componentName}}Variants }
